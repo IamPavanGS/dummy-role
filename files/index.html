@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pavan G S - Professional Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-bg: #ecf0f1;
+            --dark-bg: #34495e;
+            --text-color: #333;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+        header {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            grid-column: 1 / -1;
+            position: relative;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 30px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .contact-info {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .main-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .skills, .languages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .skill, .language {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        .skill:hover, .language:hover {
+            background-color: var(--accent-color);
+        }
+        .experience-item {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+        .experience-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+        .achievement {
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--accent-color);
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .skill-filter {
+            margin-top: 20px;
+            padding: 5px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .animation-container {
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f1;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 20px;
+        }
+        body.dark-mode {
+            --light-bg: #2c3e50;
+            --dark-bg: #34495e;
+            --text-color: #ecf0f1;
+        }
+        body.dark-mode .contact-info,
+        body.dark-mode .main-content,
+        body.dark-mode .modal-content {
+            background-color: #34495e;
+            color: #ecf0f1;
+        }
+        body.dark-mode .skill-filter {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pavan G S</h1>
+            <p>Cloud and Infra Engineer</p>
+            <button id="darkModeToggle" class="dark-mode-toggle"><i class="fas fa-moon"></i></button>
+        </header>
+
+        <aside class="contact-info">
+            <h2 onclick="toggleSection('contact')">Contact</h2>
+            <div id="contact" class="section-content">
+                <a href="https://pavansridhar.co.in/" target="_blank"><i class="fas fa-globe"></i> pavansridhar.co.in</a>
+                <a href="mailto:gspavan5011@gmail.com"><i class="fas fa-envelope"></i> gspavan5011@gmail.com</a>
+                <a href="tel:+919738706304"><i class="fas fa-phone"></i> +91 9738706304</a>
+                <a href="https://linkedin.com/in/pavangurusridhar" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+
+            <h2 onclick="toggleSection('skills')">Skills</h2>
+            <div id="skills" class="section-content">
+                <input type="text" id="skillFilter" class="skill-filter" placeholder="Filter skills...">
+                <div id="skillList" class="skills">
+                    <span class="skill">Powershell</span>
+                    <span class="skill">Python</span>
+                    <span class="skill">Docker</span>
+                    <span class="skill">DevOps</span>
+                    <span class="skill">Azure</span>
+                    <span class="skill">Office 365</span>
+                    <span class="skill">Active Directory</span>
+                    <span class="skill">DHCP</span>
+                    <span class="skill">DNS</span>
+                    <span class="skill">Virtualization</span>
+                </div>
+            </div>
+
+            <h2 onclick="toggleSection('certifications')">Certifications</h2>
+            <div id="certifications" class="section-content">
+                <ul>
+                    <li>Windows PowerShell</li>
+                    <li>Advanced Linux</li>
+                    <li>Python Essential Training</li>
+                    <li>MCSA</li>
+                    <li>CCNA</li>
+                    <li>A+ (Hardware) N+ (Networking)</li>
+                </ul>
+            </div>
+
+            <h2 onclick="toggleSection('languages')">Languages</h2>
+            <div id="languages" class="section-content">
+                <h3>Programming</h3>
+                <div class="languages">
+                    <span class="language">Python</span>
+                    <span class="language">Shell</span>
+                    <span class="language">Powershell</span>
+                    <span class="language">C#</span>
+                </div>
+                <h3>Spoken & Written</h3>
+                <p>Kannada, English, Tamil, Telugu, Hindi</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section>
+                <h2 onclick="toggleSection('experience')">Experience</h2>
+                <div id="experience" class="section-content">
+                    <div class="experience-item">
+                        <h3>QUALITEST INDIA PVT LTD | Cloud and Infra Engineer</h3>
+                        <p>January 2021 – Present | Bengaluru</p>
+                        <ul>
+                            <li>Achieved 100% reduction in manual OS deployment through WDS Server and MDT with PowerShell scripting.</li>
+                            <li>Enhanced system performance by configuring Proxmox server as a KVM virtualization platform.</li>
+                            <li>Established Qualitest AppStore platform, reducing ticket volume by 40%.</li>
+                            <li>Led global Active Directory and GPO centralization efforts.</li>
+                            <li>Reduced server downtime by 99.5% using Microsoft Sysinternals Tools.</li>
+                            <li>Implemented RPA for streamlined user onboarding and offboarding.</li>
+                            <li>Developed multiple Windows applications including Windows 11 Upgrader, ADWiz, AD Offboarding Tool, Q-Pass, Password Manager, and Q-Reset Application.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <h3>SAMSUNG | Associate</h3>
+                        <p>July 2017 – January 2021 | Bengaluru</p>
+                        <ul>
+                            <li>Provided 24x7 support for various IT issues and installations.</li>
+                            <li>Managed automatic deployment setup, antivirus, data center support, and server maintenance.</li>
+                            <li>Conducted hardware level troubleshooting and in-house security tool management.</li>
+                            <li>Offered Linux support for end users (Ubuntu, RHEL, CentOS).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 onclick="toggleSection('achievements')">Achievements</h2>
+                <div id="achievements" class="section-content">
+                    <div class="achievement">
+                        <strong>Annual "IT Rockstar" Award:</strong> Recognized for outstanding contributions and exceptional skills in application development.
+                    </div>
+                    <div class="achievement">
+                        <strong>"COVID Warrior" Award:</strong> Recognized for exceptional dedication during the pandemic, providing round-the-clock support and establishing work-from-home infrastructure.
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="skillModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="animationContainer" class="animation-container"></div>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.style.display = section.style.display === 'none' ? 'block' : 'none';
+        }
+
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            darkModeToggle.innerHTML = document.body.classList.contains('dark-mode') ?
+                '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        const skillFilter = document.getElementById('skillFilter');
+        const skillList = document.getElementById('skillList');
+        const skills = Array.from(skillList.getElementsByClassName('skill'));
+
+        skillFilter.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            skills.forEach(skill => {
+                const skillText = skill.textContent.toLowerCase();
+                skill.style.display = skillText.includes(searchTerm) ? 'inline-block' : 'none';
+            });
+        });
+
+        const modal = document.getElementById('skillModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const animationContainer = document.getElementById('animationContainer');
+        const closeBtn = document.querySelector('.modal .close');
+
+        function showSkillAnimation(skill) {
+            modalTitle.textContent = skill;
+            animationContainer.innerHTML = '';
+
+            switch(skill.toLowerCase()) {
+                case 'powershell':
+                    animationContainer.innerHTML = '<div style="font-family: monospace; padding: 10px; color: #0f0; background-color: #000;">PS C:\\> Get-Process | Where-Object {$_.CPU -gt 10}</div>';
+                    modalDescription.textContent = 'PowerShell is used for task automation and configuration management.';
+                    break;
+                case 'python':
+                    animationContainer.innerHTML = '<div style="font-size: 48px; text-align: center; animation: bounce 2s infinite;">🐍</div>';
+                    modalDescription.textContent = 'Python is a versatile language used for web development, data analysis, AI, and more.';
+                    break;
+                case 'docker':
+                    animationContainer.innerHTML = '<div style="font-size: 48px; text-align: center; animation: float 2s infinite;">🐳</div>';
+                    modalDescription.textContent = 'Docker is used for creating, deploying, and running applications in containers.';
+                    break;
+                case 'azure':
+                    animationContainer.innerHTML = '<div style="font-size: 48px; text-align: center; animation: pulse 2s infinite;">☁️</div>';
+                    modalDescription.textContent = 'Azure is Microsofts cloud computing platform used for'

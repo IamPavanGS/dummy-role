@@ -1,0 +1,17 @@
+---
+- name: install apache server
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+    update_cache: yes
+- name: Copy files to destination
+  ansible.builtin.copy:
+    dest: /var/www/html
+    src: index.html
+    owner: root
+    group: root
+    mode: '0644'
+- name: restart apache server
+  ansible.builtin.service:
+    name: apache2
+    state: restarted
